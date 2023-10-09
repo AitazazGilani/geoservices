@@ -1,0 +1,27 @@
+version: '3'
+services:
+  # PostgreSQL Database with PostGIS
+  db:
+    image: postgis/postgis:13-3.1
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: postgis
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/mnt/postgresql/data
+
+  # GeoServer
+  geoserver:
+    image: docker.osgeo.org/geoserver:2.23.1
+    container_name: geoserver
+    ports:
+      - "8080:8080"
+    volumes:
+      - geoserver-data:/mnt/geoserver/data_dir
+
+volumes:
+  postgres-data:
+  geoserver-data:
